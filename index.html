@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pedro Manuel Ruiz Pancorbo | Full Stack Developer Portfolio</title>
+  
+  <!-- Bootstrap 5.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-cyan: #06b6d4;
+      --accent-indigo: #6366f1;
+      --accent-purple: #a855f7;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+    }
+
+    /* Fondo de Luz Neón */
+    .glow-bg {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 1200px;
+      height: 500px;
+      background: radial-gradient(circle at 50% 20%, rgba(99, 102, 241, 0.15) 0%, rgba(6, 182, 212, 0.08) 40%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Tarjetas Glassmorphism */
+    .glass-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .glass-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Avatar con Anillo Neón */
+    .avatar-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .avatar-img {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .avatar-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      z-index: -1;
+      opacity: 0.7;
+      filter: blur(8px);
+    }
+
+    /* Indicador de Estado Pulsante */
+    .status-pulse {
+      width: 10px;
+      height: 10px;
+      background-color: #10b981;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* Títulos con Gradiente */
+    .text-gradient {
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .section-header {
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.5px;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Badges de Tecnologías Neo-Tech */
+    .tech-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+      padding: 0.55rem 0.9rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.25s ease;
+    }
+
+    .tech-pill:hover {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--accent-indigo);
+      color: #ffffff;
+      transform: scale(1.04);
+    }
+
+    /* Timeline Estilo Neón */
+    .timeline-modern {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .timeline-node {
+      position: relative;
+      margin-bottom: 1.75rem;
+    }
+
+    .timeline-node:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-node::before {
+      content: '';
+      position: absolute;
+      left: -1.9rem;
+      top: 0.35rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 12px var(--accent-cyan);
+    }
+
+    /* Links Estilizados */
+    .action-link {
+      color: var(--text-main);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .action-link:hover {
+      color: var(--accent-cyan);
+    }
+
+    .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo de Gradiente Neón -->
+  <div class="glow-bg"></div>
+
+  <div class="container py-5 position-relative">
+    
+    <!-- Hero Profile Section -->
+    <header class="glass-card p-4 p-md-5 mb-5 text-center text-md-start">
+      <div class="row align-items-center g-4">
+        <div class="col-md-auto text-center">
+          <div class="avatar-wrapper">
+            <img src="foto.jpg" alt="Pedro Manuel Ruiz Pancorbo" class="avatar-img" onerror="this.src='https://ui-avatars.com/api/?name=Pedro+Ruiz&size=150&background=06b6d4&color=fff'">
+          </div>
+        </div>
+        <div class="col-md">
+          <div class="d-flex align-items-center justify-content-center justify-content-md-start gap-2 mb-2">
+            <span class="status-pulse"></span>
+            <span class="text-muted small font-mono">Disponible para movilidad e incorporación</span>
+          </div>
+          <h1 class="display-5 fw-extrabold text-gradient mb-2">Pedro Manuel Ruiz Pancorbo</h1>
+          <p class="fs-5 text-muted mb-3">Técnico Superior en Desarrollo de Aplicaciones Web (DAW)</p>
+          
+          <div class="d-flex flex-wrap justify-content-center justify-content-md-start gap-2">
+            <span class="badge bg-indigo-subtle text-indigo border border-indigo-subtle px-3 py-2 rounded-pill font-mono small">
+              <i class="fa-solid fa-trophy text-warning me-1"></i> Excelencia Académica 25-26
+            </span>
+            <span class="badge bg-dark border border-secondary text-light px-3 py-2 rounded-pill font-mono small">
+              <i class="fa-solid fa-code-branch text-info me-1"></i> Full Stack Ready
+            </span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="row g-4">
+      
+      <!-- Columna Izquierda (35%) -->
+      <div class="col-lg-4">
+        
+        <!-- Contact Card -->
+        <div class="glass-card p-4 mb-4">
+          <h2 class="section-header"><i class="fa-solid fa-terminal"></i> Contacto</h2>
+          <div class="d-flex flex-column gap-3 small">
+            <div>
+              <span class="text-muted font-mono d-block mb-1">EMAIL</span>
+              <a href="mailto:pedromruizpancorbo@gmail.com" class="action-link fw-semibold">pedromruizpancorbo@gmail.com</a>
+            </div>
+            <div>
+              <span class="text-muted font-mono d-block mb-1">TELÉFONO</span>
+              <a href="tel:661155536" class="action-link fw-semibold">661 155 536</a>
+            </div>
+            <div>
+              <span class="text-muted font-mono d-block mb-1">UBICACIÓN</span>
+              <span class="fw-semibold">Escañuela, Jaén (CP 23657)</span>
+            </div>
+            <div>
+              <span class="text-muted font-mono d-block mb-1">REDES Y PORTAFOLIO</span>
+              <div class="d-flex flex-column gap-1">
+                <a href="https://bit.ly/4iVSIMS" target="_blank" class="action-link">
+                  <i class="fa-brands fa-linkedin text-info me-1"></i> LinkedIn Profile <i class="fa-solid fa-arrow-up-right-from-square tiny ms-1"></i>
+                </a>
+                <a href="https://bit.ly/4rB56UG" target="_blank" class="action-link">
+                  <i class="fa-solid fa-server text-purple me-1"></i> Servidores & BDD <i class="fa-solid fa-arrow-up-right-from-square tiny ms-1"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Languages Card -->
+        <div class="glass-card p-4 mb-4">
+          <h2 class="section-header"><i class="fa-solid fa-language"></i> Idiomas</h2>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <span class="fw-semibold">Inglés</span>
+            <span class="badge bg-info-subtle text-info font-mono">Nivel B2 Aptis</span>
+          </div>
+          <div class="progress bg-dark border border-secondary" style="height: 6px;">
+            <div class="progress-bar bg-gradient" role="progressbar" style="width: 78%; background: linear-gradient(90deg, var(--accent-indigo), var(--accent-cyan));"></div>
+          </div>
+        </div>
+
+        <!-- Details Card -->
+        <div class="glass-card p-4">
+          <h2 class="section-header"><i class="fa-solid fa-sliders"></i> Info Adicional</h2>
+          <ul class="list-unstyled mb-0 d-flex flex-column gap-2 small">
+            <li class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-id-card text-muted"></i>
+              <span>Permiso de conducir B</span>
+            </li>
+            <li class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-earth-americas text-muted"></i>
+              <span>Disponibilidad geográfica</span>
+            </li>
+            <li class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-business-time text-muted"></i>
+              <span>Flexibilidad horaria</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Columna Derecha (65%) -->
+      <div class="col-lg-8">
+        
+        <!-- Experience Card -->
+        <div class="glass-card p-4 mb-4">
+          <h2 class="section-header"><i class="fa-solid fa-briefcase"></i> Experiencia Laboral</h2>
+          <div class="timeline-modern">
+            <div class="timeline-node">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-1">
+                <h3 class="h6 fw-bold mb-0 text-white">Desarrollador Web (Prácticas Formativas)</h3>
+                <span class="badge bg-dark border border-secondary text-muted font-mono">03/2026 - 04/2026</span>
+              </div>
+              <p class="text-info small font-mono mb-2"><i class="fa-solid fa-building me-1"></i> PETROPRIX (Martos)</p>
+              <p class="text-muted small mb-0">
+                Desarrollo e implementación de funcionalidades web en entorno real de producción. Colaboración en arquitecturas escalables y gestión de herramientas técnicas del ciclo de vida software.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Education Card -->
+        <div class="glass-card p-4 mb-4">
+          <h2 class="section-header"><i class="fa-solid fa-graduation-cap"></i> Formación</h2>
+          <div class="timeline-modern">
+            <div class="timeline-node">
+              <div class="d-flex justify-content-between align-items-start flex-wrap gap-1 mb-1">
+                <h3 class="h6 fw-bold mb-0 text-white">Técnico Superior en Desarrollo de Aplicaciones Web</h3>
+                <span class="badge bg-dark border border-secondary text-muted font-mono">2025 - 2027</span>
+              </div>
+              <p class="text-muted small font-mono mb-2"><i class="fa-solid fa-school me-1"></i> IES Fernando III</p>
+              <div class="p-2 px-3 rounded-3 bg-warning-subtle text-warning border border-warning-subtle d-inline-flex align-items-center gap-2 small">
+                <i class="fa-solid fa-star"></i>
+                <span>Reconocimiento a la Excelencia en el Curso 2025-2026</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tech Stack Card -->
+        <div class="glass-card p-4">
+          <h2 class="section-header"><i class="fa-solid fa-code"></i> Stack Tecnológico</h2>
+          <p class="text-muted small mb-3">Lenguajes, frameworks y herramientas que utilizo en mis desarrollos:</p>
+          <div class="d-flex flex-wrap gap-2">
+            <span class="tech-pill"><i class="fa-brands fa-java text-danger"></i> Java</span>
+            <span class="tech-pill"><i class="fa-brands fa-js text-warning"></i> TypeScript</span>
+            <span class="tech-pill"><i class="fa-brands fa-php text-primary"></i> PHP</span>
+            <span class="tech-pill"><i class="fa-brands fa-html5 text-danger"></i> HTML5</span>
+            <span class="tech-pill"><i class="fa-brands fa-css3-alt text-info"></i> CSS3</span>
+            <span class="tech-pill"><i class="fa-solid fa-database text-success"></i> SQL</span>
+            <span class="tech-pill"><i class="fa-brands fa-square-js text-warning"></i> JavaScript</span>
+            <span class="tech-pill"><i class="fa-brands fa-react text-info"></i> React</span>
+            <span class="tech-pill"><i class="fa-brands fa-node-js text-success"></i> Node.js</span>
+            <span class="tech-pill"><i class="fa-brands fa-docker text-primary"></i> Docker</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-center mt-5 pt-4 text-muted small font-mono">
+      <p>&copy; 2026 Pedro Manuel Ruiz Pancorbo &bull; Desplegado en Netlify vía Git CI/CD</p>
+    </footer>
+
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
